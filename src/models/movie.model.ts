@@ -1,4 +1,4 @@
-import {Schema,model} from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
     export interface IMovie{
         title:string;
         description:string;
@@ -25,13 +25,11 @@ import {Schema,model} from 'mongoose';
   rating: { type: Number, min: 0, max: 10, default: 0 }
 }, { 
   timestamps: true,
-  toJSON: { virtuals: true }, // Щоб віртуальні поля були в API
+  toJSON: { virtuals: true }, 
   toObject: { virtuals: true }
 });
-
-// Віртуальна властивість: назва + рік в одному полі
 movieSchema.virtual('shortInfo').get(function() {
   return `${this.title} (${this.year})`;
 });
 
-export const MovieModel = model<IMovie>('Movie', movieSchema);
+export const MovieModel = mongoose.models['Movie'] || mongoose.model<IMovie>('Movie', movieSchema);

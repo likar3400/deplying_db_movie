@@ -1,3 +1,11 @@
-node_modules/
+node_modules
+dist
+.git
+.gitignore
 .env
-dist/
+*.md
+compose.yaml
+Dockerfile
+.dockerignore
+coverage
+*.log

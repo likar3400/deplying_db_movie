@@ -11,7 +11,6 @@ export async function connectDB(): Promise<void> {
   }
 
 }
-//перериваємо з'єднання
      process.on('SIGINT', async () => {
   await mongoose.connection.close();
   console.log('MongoDB connection closed through app termination');

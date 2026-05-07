@@ -1,18 +1,19 @@
 module.exports = {
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
-  testMatch: ['**/tests/**/*.test.ts'],
+  extensionsToTreatAsEsm: ['.ts'],
+
+  modulePathIgnorePatterns: ["<rootDir>/json/"], 
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
-  transform: {
-    '^.+\\.tsx?$': ['ts-jest', { tsconfig: './tsconfig.test.json' }],
-  },
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/server.ts',
-    '!src/config/**/*.ts',
-    '!src/middleware/**/*.ts',
+ transform: {
+  '^.+\\.tsx?$': [
+    'ts-jest',
+    {
+      useESM: true, 
+      tsconfig: 'tsconfig.json' 
+    },
   ],
-  coverageReporters: ['text', 'lcov', 'html'],
+},
 };

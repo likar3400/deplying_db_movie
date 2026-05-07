@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>50/50</span>
+                <span class='fraction'>34/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
@@ -109,14 +109,7 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,96 +124,91 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { randomUUID } from 'crypto';
-import { Movie, CreateInput, UpdateInput } from '../schemas/entity.schema';
-&nbsp;
-let movies = new Map&lt;string, Movie&gt;();
-&nbsp;
-export const findAll = (filters?: { 
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MovieModel } from '../models/movie.model.js';
+import { CreateInput, UpdateInput } from '../schemas/entity.schema.js';
+export const findAll = async (filters?: { 
   genre?: string; 
   title?: string; 
   minYear?: number; 
   maxYear?: number;
   minRating?: number; 
 }) =&gt; {
-  let result = Array.from(movies.values());
+  const query: any = {};
 &nbsp;
   if (filters) {
-    if (filters.genre) result = result.filter(m =&gt; m.genre === filters.genre);
-    if (filters.title) result = result.filter(m =&gt; m.title.toLowerCase().includes(filters.title!.toLowerCase()));
-    if (filters.minYear) result = result.filter(m =&gt; m.year &gt;= filters.minYear!);
-    if (filters.maxYear) result = result.filter(m =&gt; m.year &lt;= filters.maxYear!);
-    if (filters.minRating) result = result.filter(m =&gt; m.rating !== undefined &amp;&amp; m.rating &gt;= filters.minRating!);
+    if (filters.genre) query.genre = filters.genre;
+    if (filters.title) query.title = { $regex: filters.title, $options: 'i' }; // Пошук без урахування регістру
+    if (filters.minYear || filters.maxYear) {
+      query.year = {};
+      if (filters.minYear) query.year.$gte = filters.minYear;
+      if (filters.maxYear) query.year.$lte = filters.maxYear;
+    }
+    if (filters.minRating) query.rating = { $gte: filters.minRating };
   }
 &nbsp;
-  return result;
+  return await MovieModel.find(query);
 };
 &nbsp;
-export const findById = (id: string) =&gt; movies.get(id);
-&nbsp;
-export const create = (input: CreateInput): Movie | null =&gt; {
-  const exists = Array.from(movies.values()).find(m =&gt; m.title === input.title);
-  if (exists) return null;
-&nbsp;
-  const id = randomUUID();
-  const now = new Date();
-  const movie: Movie = { ...input, id, createdAt: now, updatedAt: now };
-  movies.set(id, movie);
-  return movie;
+export const findById = async (id: string) =&gt; {
+  return await MovieModel.findById(id);
 };
 &nbsp;
-export const update = (id: string, input: UpdateInput): Movie | null =&gt; {
-  const existing = movies.get(id);
-  if (!existing) return null;
-&nbsp;
-  const updated: Movie = { ...existing, ...input, updatedAt: new Date() };
-  movies.set(id, updated);
-  return updated;
+export const create = async (input: CreateInput) =&gt; {
+  return await MovieModel.create(input);
 };
 &nbsp;
-export const remove = (id: string) =&gt; movies.delete(id);
 &nbsp;
-export const reset = () =&gt; movies.clear();
-&nbsp;</pre></td></tr></table></pre>
+export const update = async (id: string, input: UpdateInput) =&gt; {
+  // { new: true } повертає вже оновлений об'єкт, а не старий
+  return await MovieModel.findByIdAndUpdate(id, input, { new: true });
+};
+&nbsp;
+export const remove = async (id: string) =&gt; {
+  const result = await MovieModel.findByIdAndDelete(id);
+  return !!result; 
+};
+&nbsp;
+export const reset = async () =&gt; {
+  await MovieModel.deleteMany({});
+};</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-10T09:36:04.344Z
+                at 2026-04-24T11:21:06.005Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
