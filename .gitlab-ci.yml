@@ -25,6 +25,7 @@ deploy:
   stage: deploy
   script:
     - export FLY_API_TOKEN=$(cat ~/.fly/config.yml | grep "^access_token" | cut -d' ' -f2)
-    - flyctl deploy --remote-only -a movie-js
+    - flyctl deploy -a movie-js
   only:
     - main
+
