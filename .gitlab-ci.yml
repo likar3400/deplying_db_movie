@@ -26,5 +26,8 @@ deploy:
   script:
     - flyctl auth login --access-token $(cat ~/.fly/config.yml | grep access_token | awk '{print $2}')
     - flyctl deploy --remote-only -a movie-js
+    - export FLY_API_TOKEN=$(cat ~/.fly/config.yml | grep "^access_token" | cut -d' ' -f2)
+    - flyctl deploy -a movie-js
   only:
     - main
+
