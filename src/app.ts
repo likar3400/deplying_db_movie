@@ -7,7 +7,6 @@ import * as movieRoutes from './routes/entity_route.js';
 
 const app = express();
 
-// 1. Healthcheck ендпоінт (додаємо перед іншими middleware)
 app.get('/health', (req: Request, res: Response) => {
   const dbStatus = mongoose.connection.readyState;
   
@@ -26,14 +25,12 @@ app.get('/health', (req: Request, res: Response) => {
   }
 });
 
-// 2. Стандартні middleware
 app.use(cors());
 app.use(express.json());
 
-// 3. Маршрути API
+
 app.use('/api/movies', (movieRoutes as any).default || movieRoutes);
 
-// 4. Обробка помилок
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   if (err instanceof ZodError) {
     res.status(400).json({ 

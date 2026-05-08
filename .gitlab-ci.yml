@@ -1,0 +1,33 @@
+stages:
+  - build
+  - test
+  - deploy
+
+default:
+  image: node:24
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+
+test:
+  stage: test
+  script:
+    - npm ci
+    - npm run test
+
+deploy:
+  stage: deploy
+  image: superfly/flyctl-actions:1.0.0
+  script:
+    - flyctl deploy --remote-only -a movie-js
+  only:
+    - main
+  variables:
+    FLY_API_TOKEN: $FLY_API_TOKEN
