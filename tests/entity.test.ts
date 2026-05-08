@@ -12,6 +12,7 @@ afterAll(async () => {
   jest.restoreAllMocks();
   await teardownTestDB();
 }, 30000);
+
 beforeEach(async () => {
   await storage.reset();
 });
@@ -24,7 +25,6 @@ describe('Movie API Integration Tests', () => {
     description: 'Dream within a dream',
     rating: 8.8,
   };
-
 
   test('error handler - 500 for non-zod errors', async () => {
     const original = storage.findAll;
@@ -57,7 +57,7 @@ describe('Movie API Integration Tests', () => {
   test('GET /api/movies - list with items (200)', async () => {
     await storage.create(validMovie);
     const res = await request(app).get('/api/movies');
-    expect(res.body.length).toBe(1);
+    expect(res.body.data.length).toBe(1);
   });
 
   test('GET /api/movies/:id - success (200)', async () => {
@@ -86,8 +86,8 @@ describe('Movie API Integration Tests', () => {
     await storage.create({ ...validMovie, genre: 'action' as 'action', title: 'Action Movie' });
     await storage.create({ ...validMovie, genre: 'comedy' as 'comedy', title: 'Comedy Movie' });
     const res = await request(app).get('/api/movies?genre=action');
-    expect(res.body.length).toBe(1);
-    expect(res.body[0].genre).toBe('action');
+    expect(res.body.data.length).toBe(1);
+    expect(res.body.data[0].genre).toBe('action');
   });
 
   test('GET /api/movies/top-rated - success (200)', async () => {
@@ -103,8 +103,6 @@ describe('Movie API Integration Tests', () => {
     expect(result).toBeNull();
   });
 
- 
-
   test('error handler - 400 for ZodError', async () => {
     const res = await request(app)
       .post('/api/movies')
@@ -113,8 +111,6 @@ describe('Movie API Integration Tests', () => {
     expect(res.body.error).toBe('Validation failed');
     expect(res.body).toHaveProperty('details');
   });
-
-
 
   test('error handler - 409 for duplicate key', async () => {
     const original = storage.findAll;
@@ -129,7 +125,6 @@ describe('Movie API Integration Tests', () => {
     (storage as any).findAll = original;
   });
 
-
   test('GET /api/movies/top-rated - 500 on error', async () => {
     const original = storage.findAll;
     (storage as any).findAll = async () => { throw new Error('DB error'); };
@@ -137,7 +132,6 @@ describe('Movie API Integration Tests', () => {
     expect(res.status).toBe(500);
     (storage as any).findAll = original;
   });
-
 
   test('GET /api/movies/:id - 404 not found', async () => {
     const res = await request(app).get('/api/movies/507f1f77bcf86cd799439011');
@@ -193,42 +187,41 @@ describe('Movie API Integration Tests', () => {
     await storage.create({ ...validMovie, title: 'Old', year: 1990 });
     await storage.create({ ...validMovie, title: 'New', year: 2020 });
     const res = await request(app).get('/api/movies?minYear=2000&maxYear=2023');
-    expect(res.body.length).toBe(1);
-    expect(res.body[0].title).toBe('New');
+    expect(res.body.data.length).toBe(1);
+    expect(res.body.data[0].title).toBe('New');
   });
 
   test('GET /api/movies - filter by minYear only', async () => {
     await storage.create({ ...validMovie, title: 'Old', year: 1990 });
     await storage.create({ ...validMovie, title: 'New', year: 2020 });
     const res = await request(app).get('/api/movies?minYear=2000');
-    expect(res.body.length).toBe(1);
-    expect(res.body[0].title).toBe('New');
+    expect(res.body.data.length).toBe(1);
+    expect(res.body.data[0].title).toBe('New');
   });
 
   test('GET /api/movies - filter by maxYear only', async () => {
     await storage.create({ ...validMovie, title: 'Old', year: 1990 });
     await storage.create({ ...validMovie, title: 'New', year: 2020 });
     const res = await request(app).get('/api/movies?maxYear=2000');
-    expect(res.body.length).toBe(1);
-    expect(res.body[0].title).toBe('Old');
+    expect(res.body.data.length).toBe(1);
+    expect(res.body.data[0].title).toBe('Old');
   });
 
   test('GET /api/movies - filter by minRating', async () => {
     await storage.create({ ...validMovie, title: 'Great', rating: 9.0 });
     await storage.create({ ...validMovie, title: 'Bad', rating: 3.0 });
     const res = await request(app).get('/api/movies?minRating=8');
-    expect(res.body.length).toBe(1);
-    expect(res.body[0].title).toBe('Great');
+    expect(res.body.data.length).toBe(1);
+    expect(res.body.data[0].title).toBe('Great');
   });
 
   test('GET /api/movies - filter by title', async () => {
     await storage.create({ ...validMovie, title: 'Matrix' });
     await storage.create({ ...validMovie, title: 'Inception' });
     const res = await request(app).get('/api/movies?title=matrix');
-    expect(res.body.length).toBe(1);
-    expect(res.body[0].title).toBe('Matrix');
+    expect(res.body.data.length).toBe(1);
+    expect(res.body.data[0].title).toBe('Matrix');
   });
-
 
   test('GET /api/movies - 500 on error', async () => {
     const original = storage.findAll;
