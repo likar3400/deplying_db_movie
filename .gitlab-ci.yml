@@ -25,6 +25,7 @@ test:
 deploy:
   stage: deploy
   script:
+    - echo "Token length:${#FLY_API_TOKEN}"
     - export FLY_API_TOKEN=$FLY_API_TOKEN
     - flyctl deploy --remote-only -a movie-js
   only:
