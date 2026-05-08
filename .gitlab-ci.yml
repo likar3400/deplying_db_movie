@@ -21,10 +21,10 @@ test:
   script:
     - npm ci
     - npm run test
-
 deploy:
   stage: deploy
   script:
+    - flyctl auth login --access-token $(cat ~/.fly/config.yml | grep access_token | awk '{print $2}')
     - flyctl deploy --remote-only -a movie-js
   only:
     - main
